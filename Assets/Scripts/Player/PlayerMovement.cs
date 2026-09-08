@@ -3,30 +3,25 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Rigid Body")]
-    [SerializeField] Rigidbody rb;
-
-    [HideInInspector]
-    [Header("Input System")]
-    private InputAction moveAction;
-    Vector3 moveInput;
-    Vector3 movement;
-    float movementSpeed = 15f;
+    private InputAction _moveAction;
+    
+    [SerializeField] RigidbodyMovement _rbMovement;
+    Vector2 _moveInput;
 
 
+    /// <summary>Finds the configured movement action when the component is initialized.</summary>
     void Awake() {
-        moveAction = InputSystem.actions.FindAction("Move");
+        _moveAction = InputSystem.actions.FindAction("Move");
         
     }
 
+    /// <summary>Reads the latest movement input so it can be applied during the next physics step.</summary>
     void Update() {
-        moveInput = moveAction.ReadValue<Vector2>();
+        _moveInput = _moveAction.ReadValue<Vector2>();
     }
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        movement = new Vector3(moveInput.x, 0f, moveInput.y);
 
-        rb.linearVelocity = movement * movementSpeed;
+    /// <summary>Passes the cached movement input to the Rigidbody movement component on the physics tick.</summary>
+    void FixedUpdate() {
+        _rbMovement.Move(_moveInput);
     }
 }
