@@ -1,21 +1,27 @@
 using UnityEngine;
 using UnityEngine.Pool;
+
 public class BulletScript : MonoBehaviour
 {
     [SerializeField] private float speed = 3f;
-    [SerializeField] float bulletLifeTime;
-    float time;
-    private Rigidbody rb;
-    IObjectPool<BulletScript> _bulletPool;
+    [SerializeField] private float bulletLifeTime = 3f;
 
-    public void SetPool (IObjectPool<BulletScript> bulletPool){
+    private float time;
+    private Rigidbody rb;
+    private IObjectPool<BulletScript> _bulletPool;
+
+    private bool isReleased;
+
+    public void SetPool(IObjectPool<BulletScript> bulletPool)
+    {
         _bulletPool = bulletPool;
     }
 
     public void Launch(Vector3 direction)
     {
-        rb.linearVelocity = direction * speed;
+        isReleased = false;
 
+        rb.linearVelocity = direction * speed;
         time = Time.time;
     }
 
@@ -23,7 +29,7 @@ public class BulletScript : MonoBehaviour
     {
         if (Time.time >= time + bulletLifeTime)
         {
-            _bulletPool.Release(this);
+            ReleaseBullet();
         }
     }
 
@@ -33,25 +39,46 @@ public class BulletScript : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
     }
 
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
-    void OnTriggerEnter(Collider other)
+
+    private void OnTriggerEnter(Collider other)
     {
+        if (isReleased)
+            return;
+
         if (other.CompareTag("Enemy"))
         {
             IDamageable damageable = other.GetComponent<IDamageable>();
+
             if (damageable != null)
             {
                 damageable.TakeDamage(1);
             }
-            _bulletPool.Release(this);
+
+            ReleaseBullet();
         }
     }
 
-    void OnCollisionEnter(Collision collision) {
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (isReleased)
+            return;
+
         if (collision.gameObject.CompareTag("Wall"))
-            _bulletPool.Release(this);
+        {
+            ReleaseBullet();
+        }
+    }
+
+    private void ReleaseBullet()
+    {
+        if (isReleased)
+            return;
+
+        isReleased = true;
+        _bulletPool.Release(this);
     }
 }
