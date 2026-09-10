@@ -3,6 +3,8 @@ using UnityEngine.Pool;
 public class BulletScript : MonoBehaviour
 {
     [SerializeField] private float speed = 3f;
+    [SerializeField] float bulletLifeTime;
+    float time;
     private Rigidbody rb;
     IObjectPool<BulletScript> _bulletPool;
 
@@ -13,6 +15,16 @@ public class BulletScript : MonoBehaviour
     public void Launch(Vector3 direction)
     {
         rb.linearVelocity = direction * speed;
+
+        time = Time.time;
+    }
+
+    void Update()
+    {
+        if (Time.time >= time + bulletLifeTime)
+        {
+            _bulletPool.Release(this);
+        }
     }
 
     public void ResetBullet()

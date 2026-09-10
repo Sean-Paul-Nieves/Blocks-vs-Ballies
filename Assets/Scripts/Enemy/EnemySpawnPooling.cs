@@ -9,6 +9,4 @@ public class EnemySpawnPooling : MonoBehaviour
     {
         enemyPool = pool;
     }
-
-    // Update is called once per frame
 }

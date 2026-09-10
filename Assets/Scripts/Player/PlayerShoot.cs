@@ -33,7 +33,6 @@ public class PlayerShoot : MonoBehaviour
             return;
         }
 
-        // Shooting coordinates the input and aim providers; it does not own them.
         BulletScript bullet = bulletPool.GetBullet();
 
         bullet.transform.position = aimProvider.SpawnPoint.position;
