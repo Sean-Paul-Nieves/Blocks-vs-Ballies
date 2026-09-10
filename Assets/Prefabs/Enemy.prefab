@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   agent: {fileID: 1867364489502969628}
-  player: {fileID: 1866421653535963799, guid: b70605404ca8fcf4dab8a65b4d9a201c, type: 3}
+  player: {fileID: 0}
 --- !u!114 &8818883649754345355
 MonoBehaviour:
   m_ObjectHideFlags: 0

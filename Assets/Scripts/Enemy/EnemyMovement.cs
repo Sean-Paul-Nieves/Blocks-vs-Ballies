@@ -4,10 +4,13 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] Transform player;
+    Transform player;
     void Start()
     {
-        
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 
     // Update is called once per frame

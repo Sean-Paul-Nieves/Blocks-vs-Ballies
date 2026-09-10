@@ -4,8 +4,12 @@ using UnityEngine.Pool;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private float timeBetweenSpawns = 2f;
     [SerializeField] private GameObject enemyPrefab;
+
+    [Header("Spawn Difficulty")]
+    [SerializeField] private float startingSpawnTime = 3f;
+    [SerializeField] private float minimumSpawnTime = 0.8f;
+    [SerializeField] private float difficultyIncreaseRate = 0.4f;
 
     private float timeSinceLastSpawn;
 
@@ -46,13 +50,23 @@ public class Spawner : MonoBehaviour
         enemy.gameObject.SetActive(false);
     }
 
+    private float GetSpawnInterval()
+    {
+        float minutesSurvived = Time.time / 60f;
+
+        return Mathf.Max(
+            minimumSpawnTime,
+            startingSpawnTime - minutesSurvived * difficultyIncreaseRate
+        );
+    }
+
     private void Update()
     {
         if (Time.time >= timeSinceLastSpawn)
         {
             enemyPool.Get();
 
-            timeSinceLastSpawn = Time.time + timeBetweenSpawns;
+            timeSinceLastSpawn = Time.time + GetSpawnInterval();
         }
     }
 }
