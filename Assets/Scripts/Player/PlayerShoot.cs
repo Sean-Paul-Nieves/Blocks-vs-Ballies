@@ -7,6 +7,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private PlayerAttackInput attackInputComponent;
     [SerializeField] private BulletPooling bulletPool;
     [SerializeField] private PlayerAim aimComponent;
+    [SerializeField] Animator animator;
 
     private IAttackInput attackInput;
     private IAimProvider aimProvider;
@@ -39,6 +40,9 @@ public class PlayerShoot : MonoBehaviour
         bullet.transform.rotation = Quaternion.LookRotation(aimProvider.AimDirection);
 
         bullet.Launch(aimProvider.AimDirection);
+
+        SoundManager.PlaySound(SoundType.SHOOT, 0.3f);
+        animator.SetTrigger("Shoot");
     }
 }
 

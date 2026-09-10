@@ -14,10 +14,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         _currentHealth -= Mathf.Max(0, damage);
+        SoundManager.PlaySound(SoundType.ENEMYHIT, 0.6f);
 
         if (_currentHealth <= 0)
         {
             Destroy(gameObject);
+            SoundManager.PlaySound(SoundType.ENEMYDEAD, 0.7f);
         }
     }
 }
