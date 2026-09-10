@@ -13,6 +13,6 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.destination = player.position;
+        agent.SetDestination(player.position);
     }
 }
