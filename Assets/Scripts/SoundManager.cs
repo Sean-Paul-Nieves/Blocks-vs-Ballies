@@ -1,14 +1,25 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum SoundType
 {
     SHOOT, ENEMYHIT, ENEMYDEAD
 }
 
+public enum MusicType
+{
+    MAINMENU, GAMEPLAY
+}
+
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] private SoundClip[] soundClips;
+    [SerializeField] AudioClip mainMenuMusic;
+    [SerializeField] AudioClip gamePlayMusic;
+
+    string mainMenuScene = "Main_Menu";
+    string gameplayScene = "Gameplay";
 
     private static SoundManager instance;
     private AudioSource audioSource;
@@ -22,11 +33,28 @@ public class SoundManager : MonoBehaviour
         }
 
         instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        audioSource = GetComponent<AudioSource>();
     }
 
-    private void Start()
+    void OnDisable()
     {
-        audioSource = GetComponent<AudioSource>();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == mainMenuScene)
+        {
+            audioSource.clip = mainMenuMusic;
+        }
+        else if (scene.name == gameplayScene)
+        {
+            audioSource.clip = gamePlayMusic;
+        }
+            audioSource.loop = true;
+            audioSource.Play();
     }
 
     public static void PlaySound(SoundType sound, float volume = 1f)
@@ -45,9 +73,12 @@ public class SoundManager : MonoBehaviour
         instance.audioSource.PlayOneShot(randomClip, volume);
     }
 
-#if UNITY_EDITOR
+
     private void OnEnable()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        
+#if UNITY_EDITOR
         string[] names = Enum.GetNames(typeof(SoundType));
 
         Array.Resize(ref soundClips, names.Length);

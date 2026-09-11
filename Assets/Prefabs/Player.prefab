@@ -224,6 +224,7 @@ MonoBehaviour:
   attackInputComponent: {fileID: 6298159256320911820}
   bulletPool: {fileID: 7338011366422555753}
   aimComponent: {fileID: 7939291634633562652}
+  animator: {fileID: 0}
 --- !u!114 &7939291634633562652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +310,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 2
-  m_Color: {r: 0.627451, g: 0.8352941, b: 0.40784314, a: 1}
+  m_Color: {r: 1, g: 0.63529414, b: 0.22745098, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -431,7 +432,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 004b37b711f7ad144a6f0e52a1f1846b, type: 2}
+  - {fileID: 2100000, guid: 1b0377e0a64663c448ab7a720f95078a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

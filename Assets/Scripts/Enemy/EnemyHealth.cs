@@ -3,6 +3,8 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] int maxHealth = 3;
+    [SerializeField] Animator animator;
+    [SerializeField] ParticleSystem hitParticle;
 
     private int _currentHealth;
 
@@ -15,9 +17,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         _currentHealth -= Mathf.Max(0, damage);
         SoundManager.PlaySound(SoundType.ENEMYHIT, 0.6f);
+        animator.SetTrigger("Hit");
 
         if (_currentHealth <= 0)
         {
+            hitParticle.Play();
             Destroy(gameObject);
             SoundManager.PlaySound(SoundType.ENEMYDEAD, 0.7f);
         }
