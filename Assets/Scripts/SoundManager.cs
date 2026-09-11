@@ -77,7 +77,7 @@ public class SoundManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        
+
 #if UNITY_EDITOR
         string[] names = Enum.GetNames(typeof(SoundType));
 
@@ -87,8 +87,8 @@ public class SoundManager : MonoBehaviour
         {
             soundClips[i].name = names[i];
         }
-    }
 #endif
+    }
 }
 
 [Serializable]
