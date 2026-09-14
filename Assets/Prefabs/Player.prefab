@@ -50,6 +50,8 @@ GameObject:
   - component: {fileID: 7939291634633562652}
   - component: {fileID: 6298159256320911820}
   - component: {fileID: 7338011366422555753}
+  - component: {fileID: -2127830583023738707}
+  - component: {fileID: 2594669651822654288}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -109,7 +111,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 004b37b711f7ad144a6f0e52a1f1846b, type: 2}
+  - {fileID: 2100000, guid: 1b0377e0a64663c448ab7a720f95078a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -224,7 +226,7 @@ MonoBehaviour:
   attackInputComponent: {fileID: 6298159256320911820}
   bulletPool: {fileID: 7338011366422555753}
   aimComponent: {fileID: 7939291634633562652}
-  animator: {fileID: 0}
+  animator: {fileID: 4684485935728451145}
 --- !u!114 &7939291634633562652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,6 +270,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletPooling
   bulletPrefab: {fileID: 628816666501952060, guid: ba8f6975f49dbd44b8fcd8b6c40a052c, type: 3}
+--- !u!114 &-2127830583023738707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3230804157624978085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a5151c42741464381652ddcbf4bc92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 1
+  mesh: {fileID: 5329994919687242034}
+--- !u!114 &2594669651822654288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3230804157624978085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d747a0187561bdc46a9a57d8bd5e9a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPauseInput
+  pausePanel: {fileID: 0}
 --- !u!1 &4280835432147461154
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,9 +406,10 @@ GameObject:
   - component: {fileID: 9000602985657130948}
   - component: {fileID: 2379388736067477763}
   - component: {fileID: 4684485935728451145}
+  - component: {fileID: 1629266620588319996}
   m_Layer: 0
   m_Name: Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -478,6 +508,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1629266620588319996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329994919687242034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e195a479714235489c3ff6c796b6657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathHandler
+  deathPanel: {fileID: 0}
+  timer: {fileID: 0}
+  resultText: {fileID: 0}
 --- !u!1 &9086695020248050748
 GameObject:
   m_ObjectHideFlags: 0

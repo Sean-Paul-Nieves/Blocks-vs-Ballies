@@ -21,9 +21,23 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         if (_currentHealth <= 0)
         {
-            hitParticle.Play();
-            Destroy(gameObject);
-            SoundManager.PlaySound(SoundType.ENEMYDEAD, 0.7f);
+            Die();
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<IDamageable>().TakeDamage(1);
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        hitParticle.Play();
+        Destroy(gameObject);
+        SoundManager.PlaySound(SoundType.ENEMYDEAD, 0.7f);
     }
 }
